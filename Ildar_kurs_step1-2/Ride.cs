@@ -18,8 +18,7 @@ namespace kurs_step1_2
 
         public Ride(DateTime dateTime, int price)//конструктор
         {
-            DateTime = dateTime;
-            Price = price;
+            
         }
 
         public DateTime DateTime { get => _dateTime; set => _dateTime = value; }
