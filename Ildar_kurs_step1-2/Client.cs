@@ -33,40 +33,7 @@ namespace kurs_step1_2
 
         public bool AddRide(DateTime dateTime, int price)//метод добавления поездки
         {
-            bool check = true;
-            Ride prev = Rides;
-            Ride current = Rides.Next;
-            Ride newRide = new Ride(dateTime, price);
-            newRide.Head = Rides;
-            if(countOrder == 0){
-                Rides.Next = newRide;
-                LastRide = newRide;
-            }
-            else
-            {
-                while(current != null)
-                {
-                    if(DateTime.Compare(newRide.DateTime, current.DateTime) < 0)
-                    {
-                        newRide.Next = current;
-                        prev.Next = current;
-                        check = false;
-                        break;
-                    }
-                    else
-                    {
-                        prev = current;
-                        current = current.Next;
-                    }
-                }
-                if(check)
-                {
-                    LastRide.Next = newRide;
-                    LastRide = newRide;
-                }
-            }
-            countOrder++;
-            return true;
+            
         }
         public bool DeleteRide(DateTime dateTime)//метод удаления поездки
         {
