@@ -11,7 +11,7 @@ namespace kurs_step1_2
             int price;
             DateTime dateTime;
 
-            Console.WriteLine("enter the size of the store ");
+            Console.WriteLine("enter the size of the taxipark ");
             Clients ClientsBd = new Clients(Convert.ToInt32(Console.ReadLine()));
             while (Menu != 7)
             {

@@ -13,7 +13,7 @@ namespace kurs_step1_2
     {
         int id;         //поле номера клиента
         int countOrder; //поле заказов
-        Ride rides;     //поле поездок
+        Ride _head;     //поле поездок
         Ride lastRide;  //указатель на последную поездку
         Ride prevRide;  //указатель на предыдущую поездку
 
@@ -21,25 +21,24 @@ namespace kurs_step1_2
         {
             ClientId = clientId;
             CountOrder = 0;
-            Rides = new Ride(new DateTime(0001, 1, 1), 0);
+            Head = new Ride(new DateTime(0001, 1, 1), 0);
             LastRide = null;
-            PrevRide = rides;
+            PrevRide = _head;
         }
         public int ClientId { get => id; set => id = value; }
         public int CountOrder { get => countOrder; set => countOrder = value; }
-        public Ride Rides { get => rides; set => rides = value; }
+        public Ride Head { get => _head; set => _head = value; }
         internal Ride LastRide { get => lastRide; set => lastRide = value; }
         internal Ride PrevRide { get => prevRide; set => prevRide = value; }
 
         public bool AddRide(DateTime dateTime, int price)//метод добавления поездки
         {
             bool check = true;
-            Ride prev = Rides;
-            Ride current = Rides.Next;
+            Ride prev = Head;
+            Ride current = Head.Next;
             Ride newRide = new Ride(dateTime, price);
-            newRide.Head = Rides;
             if(countOrder == 0){
-                Rides.Next = newRide;
+                Head.Next = newRide;
                 LastRide = newRide;
             }
             else
@@ -103,7 +102,7 @@ namespace kurs_step1_2
         }
         public Ride FindRide(DateTime dateTime)//метод поиска поездки
         {
-            Ride current = Rides.Next;
+            Ride current = Head.Next;
             while(current != null)
             {
                 if(current.DateTime == dateTime)
@@ -120,7 +119,7 @@ namespace kurs_step1_2
         }
         public int SumRide()//метод подсчета суммы всех заказов
         {
-            Ride current = Rides.Next;
+            Ride current = Head.Next;
             int SumRide = 0;
             while(current != null)
             {
@@ -131,7 +130,7 @@ namespace kurs_step1_2
         }
         public string InfoClient()//метод получения ифнормации
         {
-            Ride current = Rides.Next;
+            Ride current = Head.Next;
             string dataClient = "";
             if (current != null)
             {
