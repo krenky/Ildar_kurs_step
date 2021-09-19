@@ -39,7 +39,6 @@ namespace kurs_step1_2
             Ride newRide = new Ride(dateTime, price);
             if(countOrder == 0){
                 Head.Next = newRide;
-                LastRide = newRide;
             }
             else
             {
@@ -60,8 +59,7 @@ namespace kurs_step1_2
                 }
                 if(check)
                 {
-                    LastRide.Next = newRide;
-                    LastRide = newRide;
+                    prev.Next = newRide;
                 }
             }
             countOrder++;
@@ -71,28 +69,15 @@ namespace kurs_step1_2
         {
             if(countOrder != 0)
             {
-                Ride current = FindRide(dateTime);
+                Ride current = FindPrevRide(dateTime);
                 if(current == null)
                 {
                     return false;
                 }
                 else
                 {
-                    if(current != LastRide)
-                    {
-                        PrevRide.Next = current.Next;
-                        current = null;
-                        countOrder--;
-                        return true;
-                    }
-                    else
-                    {
-                        LastRide = PrevRide;
-                        LastRide.Next = null;
-                        current = null;
-                        countOrder--;
-                        return true;
-                    }
+                    current.Next = current.Next.Next;
+                    return true;
                 }
             }
             else
@@ -102,6 +87,7 @@ namespace kurs_step1_2
         }
         public Ride FindRide(DateTime dateTime)//метод поиска поездки
         {
+            Ride prev = Head;
             Ride current = Head.Next;
             while(current != null)
             {
@@ -111,7 +97,25 @@ namespace kurs_step1_2
                 }
                 else
                 {
-                    PrevRide = current;
+                    prev = current;
+                    current = current.Next;
+                }
+            }
+            return null;
+        }
+        public Ride FindPrevRide(DateTime dateTime)//метод поиска предыдущей искомой поездки
+        {
+            Ride prev = Head;
+            Ride current = Head.Next;
+            while (current != null)
+            {
+                if (current.DateTime == dateTime)
+                {
+                    return prev;
+                }
+                else
+                {
+                    prev = current;
                     current = current.Next;
                 }
             }
@@ -135,9 +139,6 @@ namespace kurs_step1_2
             if (current != null)
             {
                 dataClient = $"Кол-во заказов: {CountOrder}\n " +
-                $"последний заказ : \n" +
-                $"Цена : {LastRide.Price}\n" +
-                $"Время : {LastRide.DateTime}\n" +
                 "поездки:\n";
                 while (current != null)
                 {
