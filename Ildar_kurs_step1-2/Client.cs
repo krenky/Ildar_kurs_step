@@ -22,14 +22,10 @@ namespace kurs_step1_2
             ClientId = clientId;
             CountOrder = 0;
             Head = new Ride(new DateTime(0001, 1, 1), 0);
-            LastRide = null;
-            PrevRide = _head;
         }
         public int ClientId { get => id; set => id = value; }
         public int CountOrder { get => countOrder; set => countOrder = value; }
         public Ride Head { get => _head; set => _head = value; }
-        internal Ride LastRide { get => lastRide; set => lastRide = value; }
-        internal Ride PrevRide { get => prevRide; set => prevRide = value; }
 
         public bool AddRide(DateTime dateTime, int price)//метод добавления поездки
         {
